@@ -29,8 +29,19 @@ class Menu extends Model
 
     public function getPhotoFullUrlAttribute(): ?string
     {
-        return $this->photo_path
-            ? asset($this->photo_path)  // Direct path: /images/menus/xxx.jpg
-            : null;
+        if (!$this->photo_path) {
+            return null;
+        }
+        
+        // Untuk production di Vercel, gunakan full URL dengan /api/api prefix
+        $baseUrl = config('app.url') ?: request()->getSchemeAndHttpHost();
+        
+        // Jika path sudah dimulai dengan /, langsung concat
+        // Jika belum, tambahkan /
+        $path = str_starts_with($this->photo_path, '/') 
+            ? $this->photo_path 
+            : '/' . $this->photo_path;
+            
+        return $baseUrl . '/api' . $path;
     }
 }
