@@ -3,6 +3,13 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+// Source - https://stackoverflow.com/q
+// Posted by Gomathimeena Subburayan, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-12-11, License - CC BY-SA 4.0
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Headers: *');
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(

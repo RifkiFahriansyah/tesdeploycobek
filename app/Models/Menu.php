@@ -33,6 +33,14 @@ class Menu extends Model
             return null;
         }
         
-        return asset($this->photo_path);  // Direct path: /images/menus/xxx.jpg
+        // Force HTTPS for production (Vercel)
+        $url = asset($this->photo_path);
+        
+        // If in production and URL is http, convert to https
+        if (app()->environment('production') && str_starts_with($url, 'http://')) {
+            $url = 'https://' . substr($url, 7);
+        }
+        
+        return $url;
     }
 }
