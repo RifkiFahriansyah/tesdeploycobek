@@ -33,14 +33,19 @@ class Menu extends Model
             return null;
         }
         
-        // Force HTTPS for production (Vercel)
-        $url = asset($this->photo_path);
-        
-        // If in production and URL is http, convert to https
-        if (app()->environment('production') && str_starts_with($url, 'http://')) {
-            $url = 'https://' . substr($url, 7);
+        // In production (Vercel), convert image to base64 since static files aren't served
+        if (app()->environment('production')) {
+            $imagePath = public_path($this->photo_path);
+            
+            if (file_exists($imagePath)) {
+                $imageData = base64_encode(file_get_contents($imagePath));
+                $imageType = pathinfo($imagePath, PATHINFO_EXTENSION);
+                
+                return "data:image/{$imageType};base64,{$imageData}";
+            }
         }
         
-        return $url;
+        // For local development, use normal asset URL
+        return asset($this->photo_path);
     }
 }
