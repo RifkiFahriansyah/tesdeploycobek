@@ -8,29 +8,54 @@
     },
     "routes": [
         {
+            "src": "/api/api/(.*)",
+            "methods": ["OPTIONS"],
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, Accept, Origin",
+                "Access-Control-Max-Age": "86400"
+            },
+            "status": 200
+        },
+        {
             "src": "/build/(.*)",
-            "dest": "/public/build/"
+            "dest": "/public/build/",
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         },
         {
             "src": "/css/(.*)",
-            "dest": "/public/css/"
+            "dest": "/public/css/",
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         },
         {
             "src": "/images/(.*)",
-            "dest": "/public/images/"
+            "dest": "/public/images/",
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         },
         {
             "src": "/js/(.*)",
-            "dest": "/public/js/"
+            "dest": "/public/js/",
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         },
         {
             "src": "/vendors/(.*)",
-            "dest": "/public/vendors/"
+            "dest": "/public/vendors/",
+            "headers": {
+                "Access-Control-Allow-Origin": "*"
+            }
         },
         {
             "src": "/(.*)",
             "dest": "/api/index.php",
-            "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
             "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
